@@ -119,9 +119,10 @@ cook-along/
 3. Test responsiveness and accessibility  
 4. Document new features  
 
----
 
+---
 ## Try Out at [CookAlong](https://cookalong.vercel.app/)
+---
 
 ## 📄 License
 
