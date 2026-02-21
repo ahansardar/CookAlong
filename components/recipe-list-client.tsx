@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useMemo } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { RecipeCard } from "@/components/recipe-card"
 import { getAllRecipes, getFeaturedRecipes, getAllCategories, type Recipe } from "@/lib/supabase"
 import { motion } from "framer-motion"
@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 
 export function RecipeListClient() {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
   const [featuredRecipes, setFeaturedRecipes] = useState<Recipe[]>([])
@@ -19,18 +18,26 @@ export function RecipeListClient() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isClient, setIsClient] = useState(false) // ✅ check for client
+
+  // Detect client-side
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Grab query params only on client
   useEffect(() => {
-    const categoryParam = searchParams.get("category")
-    const searchParam = searchParams.get("search")
+    if (!isClient) return
+    const params = new URLSearchParams(window.location.search)
+    const categoryParam = params.get("category")
+    const searchParam = params.get("search")
     
     if (categoryParam) setSelectedCategory(categoryParam)
     if (searchParam) {
       setSearchQuery(searchParam)
       setSearchInput(searchParam)
     }
-  }, [searchParams])
+  }, [isClient])
 
   // Load recipes
   useEffect(() => {
@@ -73,7 +80,7 @@ export function RecipeListClient() {
     router.push(selectedCategory ? `/?category=${encodeURIComponent(selectedCategory)}` : "/")
   }
 
-  if (isLoading) {
+  if (!isClient || isLoading) {
     return (
       <div className="space-y-8">
         <div className="h-12 bg-muted rounded-lg animate-pulse" />
@@ -89,6 +96,8 @@ export function RecipeListClient() {
       </div>
     )
   }
+
+
 
   return (
     <div className="space-y-8">
