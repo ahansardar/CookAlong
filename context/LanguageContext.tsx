@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
-export type Language = 'en' | 'hi' | 'ta' | 'te' | 'kn' | 'ml' | 'gu' | 'mr' | 'bn' | 'pa'
+export type Language = 'en' | 'hi' | 'ta' | 'te' | 'kn' | 'ml' | 'gu' | 'mr' | 'bn' | 'pa' | 'ur' | 'or' | 'as' | 'sa' | 'ko' | 'mn' | 'ne' | 'si' | 'dg' | 'ks' | 'br' | 'mt' | 'st'
 
 interface LanguageContextType {
   language: Language
@@ -209,23 +209,23 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       },
       mr: {
         'home.title': 'चरण-दर-चरण स्वयंपाक सहज केली',
-        'home.description': 'वेळेची बंधने असलेल्या निर्देशांचे पालन करा जे तुम्हाला प्रत्येक रेसिपीद्वारे मार्गदर्शन करतात. तुमच्या फोन किंवा टॅबलेटसह स्वयंपाकघरात स्वयंपाक करण्यासाठी बिल्कुल योग्य.',
+        'home.description': 'वेळेची ���ंधने असलेल्या निर्देशांचे ��ालन करा जे तुम्हाला प्���त्येक रेसिपीद्वारे मार्गदर्शन करतात. तुमच्या फोन किंवा टॅबलेटसह स्वयंपाकघरात स्वयंपाक करण्यासाठी बिल्कुल योग्य.',
         'home.viewRecipe': 'रेसिपी पहा',
         'recipe.ingredients': 'घटक',
         'recipe.steps': 'पायऱ्या',
-        'recipe.cookAlong': 'एकत्र स्वयंपाक करा',
+        'recipe.cookAlong': '��कत्र स्वयंपाक करा',
         'recipe.time': 'वेळ',
         'recipe.servings': 'सेवन',
         'cookAlong.currentStep': 'वर्तमान पायरी',
         'cookAlong.next': 'पुढील पायरी',
-        'cookAlong.previous': 'मागी��� पायरी',
+        'cookAlong.previous': 'मागील पायरी',
         'cookAlong.complete': 'स्वयंपाक पूर्ण',
         'common.language': 'भाषा',
         'common.english': 'English',
         'common.hindi': 'हिंदी',
         'common.tamil': 'தமிழ்',
         'common.telugu': 'తెలుగు',
-        'common.kannada': 'ಕನ್ನ��',
+        'common.kannada': 'ಕನ್ನಡ',
         'common.malayalam': 'മലയാളം',
         'common.gujarati': 'ગુજરાતી',
         'common.marathi': 'मराठी',
@@ -234,14 +234,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       },
       bn: {
         'home.title': 'ধাপে ধাপে রান্না সহজ করা হয়েছে',
-        'home.description': 'সময়বদ্ধ নির্দেশাবলী অ��ুসরণ করুন যা প্রতিটি রেসিপির মাধ্যমে আপনাকে গাইড করে। আপনার ফোন বা ট্যাবলেট দিয়ে রান্নাঘরে রান্নার জন্য একেবারে নিখুঁত।',
-        'home.viewRecipe': 'রেসিপি দেখুন',
+        'home.description': 'সময়বদ্ধ নির্দেশাবলী অনুসরণ করুন যা প্রতি���ি রেসিপির মাধ্যমে আপনাকে গাইড করে। আপনার ফোন বা ট্যাবলেট দিয��ে রান্নাঘরে রান্নার জন্য একেবারে নিখুঁত।',
+        'home.viewRecipe': 'রেসিপ�� দেখুন',
         'recipe.ingredients': 'উপাদান',
         'recipe.steps': 'পদক্ষেপ',
         'recipe.cookAlong': 'সাথে রান্না করুন',
         'recipe.time': 'সময়',
         'recipe.servings': 'পরিবেশন',
-        'cookAlong.currentStep': 'বর্তমান পদক্ষেপ',
+        'cookAlong.currentStep': 'বর্তমান পদক্��েপ',
         'cookAlong.next': 'পরবর্তী পদক্ষেপ',
         'cookAlong.previous': 'আগের পদক্ষেপ',
         'cookAlong.complete': 'রান্না সম্পন্ন',
@@ -254,12 +254,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         'common.malayalam': 'മലയാളം',
         'common.gujarati': 'ગુજરાતી',
         'common.marathi': 'मરाठी',
-        'common.bengali': 'ব���ংলা',
+        'common.bengali': 'বাংলা',
         'common.punjabi': 'ਪੰਜਾਬੀ',
       },
       pa: {
         'home.title': 'ਕਦਮ-ਦਰ-ਕਦਮ ਖਾਣਾ ਪਕਾਉਣਾ ਆਸਾਨ ਬਣਾਇਆ ਗਿਆ',
-        'home.description': 'ਸਮੇਂ-ਬੱਧ ਹਦਾਇਤਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ ਜੋ ਤੁਹਾਨੂੰ ਹਰੇਕ ਖਾਣੇ ਦੀ ਰਸੀਪੀ ਦੇ ਜ਼ਰੀਏ ਗਾਈਡ ਕਰਦੇ ਹਨ। ਆਪਣੇ ਫੋਨ ��ਾਂ ਟੈਬਲੇਟ ਦੇ ਨਾਲ ਰਸੋਈ ਵਿੱਚ ਖਾਣਾ ਪਕਾਉਣ ਲਈ ਬਿਲਕੁਲ ਬਿਰਤਾ।',
+        'home.description': 'ਸਮੇਂ-ਬੱਧ ਹਦਾਇਤਾਂ ਦੀ ਪਾਲਣਾ ��ਰੋ ਜੋ ਤੁਹਾਨੂੰ ਹਰੇਕ ਖਾਣੇ ਦੀ ਰਸੀਪੀ ਦੇ ਜ਼ਰੀਏ ਗਾਈਡ ਕਰਦੇ ਹਨ। ਆਪਣੇ ਫੋਨ ਜਾਂ ਟੈਬਲੇਟ ਦੇ ਨਾਲ ਰਸੋਈ ਵਿੱਚ ਖਾਣਾ ਪਕਾਉਣ ਲਈ ਬਿਲਕੁਲ ਬਿਰਤਾ।',
         'home.viewRecipe': 'ਖਾਣੇ ਦੀ ਰਸੀਪੀ ਦੇਖੋ',
         'recipe.ingredients': 'ਪ੍ਰਾਸ਼ੀਂ',
         'recipe.steps': 'ਪੜਾਅ',
@@ -268,7 +268,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         'recipe.servings': 'ਸੇਵਾ',
         'cookAlong.currentStep': 'ਮੌਜੂਦਾ ਪੜਾਅ',
         'cookAlong.next': 'ਅਗਲਾ ਪੜਾਅ',
-        'cookAlong.previous': 'ਪਿਛਲਾ ਪੜਾਅ',
+        'cookAlong.previous': 'ਪਿਛ���ਾ ਪੜਾਅ',
         'cookAlong.complete': 'ਖਾਣਾ ਤਿਆਰ ਕਰ ਲਿਆ ਗਿਆ',
         'common.language': 'ਭਾਸ਼ਾ',
         'common.english': 'English',
