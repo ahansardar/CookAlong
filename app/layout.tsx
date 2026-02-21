@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { LanguageProvider } from "@/context/LanguageContext"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -17,28 +16,11 @@ export const metadata: Metadata = {
   creator: "Ahan Sardar",
   icons: {
     icon: [
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        url: "/icon-light-32x32.jpg",
-        sizes: "32x32",
-        type: "image/png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.jpg",
-        sizes: "32x32",
-        type: "image/png",
-        media: "(prefers-color-scheme: dark)",
-      },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-light-32x32.jpg", sizes: "32x32", type: "image/png", media: "(prefers-color-scheme: light)" },
+      { url: "/icon-dark-32x32.jpg", sizes: "32x32", type: "image/png", media: "(prefers-color-scheme: dark)" },
     ],
-    apple: {
-      url: "/apple-icon.jpg",
-      sizes: "180x180",
-      type: "image/png",
-    },
+    apple: { url: "/apple-icon.jpg", sizes: "180x180", type: "image/png" },
   },
 }
 
@@ -60,8 +42,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased`}>
-        <LanguageProvider>{children}</LanguageProvider>
+      <body className="font-sans antialiased">
+        {/* Removed LanguageProvider, using standalone LanguageSelector instead */}
+        {children}
         <Analytics />
       </body>
     </html>
