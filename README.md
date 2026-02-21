@@ -1,4 +1,5 @@
 # Cook-Along 🍳
+(https://image2url.com/r2/default/images/1771682190258-9ee103af-baa1-4cd5-a3bc-4ee490e12fed.png)
 
 A modern, responsive recipe browsing and cook-along companion app built with **Next.js**, **Supabase**, and real-time timer functionality.
 
