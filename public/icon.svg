@@ -1,0 +1,37 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .icon-color { stroke: #d97706; fill: none; }
+      .icon-fill { fill: #d97706; }
+      .background { fill: #fef3c7; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .icon-color { stroke: #fbbf24; fill: none; }
+      .icon-fill { fill: #fbbf24; }
+      .background { fill: #1a1410; }
+    }
+  </style>
+  
+  <rect class="background" width="180" height="180" rx="37" />
+  
+  <!-- Chef Hat -->
+  <path class="icon-color"
+    d="M40 75C40 65.0589 48.0589 57 58 57C59.8259 57 61.5578 57.3488 63.1379 57.9779C66.0865 52.0074 72.1789 48 79.125 48C86.0711 48 92.1635 52.0074 95.1121 57.9779C96.6922 57.3488 98.4241 57 100.25 57C110.191 57 118.25 65.0589 118.25 75C118.25 76.5472 118.097 78.0608 117.808 79.5251L109 123H49L40.1916 79.5251C39.9027 78.0608 39.75 76.5472 39.75 75C39.75 74.5446 39.7731 74.0946 39.8184 73.6513"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- Hat Bottom Lines -->
+  <line class="icon-color" x1="49" y1="123" x2="49" y2="132" stroke-width="8" stroke-linecap="round"/>
+  <line class="icon-color" x1="109" y1="123" x2="109" y2="132" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Steam Lines -->
+  <path class="icon-color" d="M65 45C65 45 66 38 68 35" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <path class="icon-color" d="M79 42C79 42 80 34 82 30" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <path class="icon-color" d="M93 45C93 45 94 38 96 35" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Spoon -->
+  <ellipse class="icon-fill" cx="80" cy="145" rx="9" ry="6" opacity="0.8"/>
+  <line class="icon-color" x1="80" y1="139" x2="80" y2="123" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+</svg>

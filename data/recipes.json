@@ -1,0 +1,340 @@
+[
+  {
+    "id": "traditional-gajar-ka-halwa",
+    "title": "Traditional Gajar Ka Halwa",
+    "description": "Classic North Indian gajar ka halwa made with slow-cooked carrots, milk, ghee, and khoya",
+    "totalTime": "1 hour 40 minutes",
+    "ingredients": [
+      { "quantity": "2", "unit": "kg", "name": "red carrots, peeled and medium grated" },
+      { "quantity": "2", "unit": "litres", "name": "full cream milk" },
+      { "quantity": "350", "unit": "g", "name": "sugar (adjust to taste)" },
+      { "quantity": "150", "unit": "g", "name": "desi ghee" },
+      { "quantity": "200", "unit": "g", "name": "khoya (mawa), crumbled" },
+      { "quantity": "0.75", "unit": "tsp", "name": "cardamom powder" },
+      { "quantity": "20", "unit": "", "name": "cashews, halved" },
+      { "quantity": "15", "unit": "", "name": "almonds, sliced" },
+      { "quantity": "1.5", "unit": "tbsp", "name": "raisins" }
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "instruction": "Wash, peel, and medium-grate the carrots. Keep them aside.",
+        "durationInSeconds": 600
+        
+      },
+      {
+        "stepNumber": 2,
+        "instruction": "Add grated carrots and milk to a heavy-bottom kadhai. Cook on medium flame, stirring every few minutes.",
+        "durationInSeconds": 2400
+      },
+      {
+        "stepNumber": 3,
+        "instruction": "Continue cooking until the milk completely reduces and the carrots become soft and glossy.",
+        "durationInSeconds": 600
+      },
+      {
+        "stepNumber": 4,
+        "instruction": "Add desi ghee and cook on medium flame, stirring continuously, until ghee separates and raw smell disappears.",
+        "durationInSeconds": 900
+        
+      },
+      {
+        "stepNumber": 5,
+        "instruction": "Lower the flame, add sugar, and mix well. Cook until the released moisture evaporates and the halwa thickens again.",
+        "durationInSeconds": 600
+      },
+      {
+        "stepNumber": 6,
+        "instruction": "Add crumbled khoya and mix thoroughly. Cook until the halwa becomes heavy and rich.",
+        "durationInSeconds": 420
+      },
+      {
+        "stepNumber": 7,
+        "instruction": "Add cardamom powder and mix well to evenly distribute the flavour.",
+        "durationInSeconds": 60
+      },
+      {
+        "stepNumber": 8,
+        "instruction": "In a small pan, lightly fry cashews, almonds, and raisins in a little ghee until aromatic.",
+        "durationInSeconds": 240
+      },
+      {
+        "stepNumber": 9,
+        "instruction": "Add the fried dry fruits to the halwa and mix gently. Switch off the heat.",
+        "durationInSeconds": 120
+      },
+      {
+        "stepNumber": 10,
+        "instruction": "Serve hot, garnished with extra nuts if desired.",
+        "durationInSeconds": 60
+      }
+    ]
+  },
+  {
+    "id": "paneer-butter-masala",
+    "title": "Paneer Butter Masala",
+    "description": "Rich and creamy North Indian curry made with paneer in a buttery tomato-based gravy",
+    "totalTime": "35 minutes",
+    "ingredients": [
+      { "quantity": "250", "unit": "g", "name": "paneer, cubed" },
+      { "quantity": "3", "unit": "", "name": "ripe tomatoes, chopped" },
+      { "quantity": "2", "unit": "", "name": "onions, chopped" },
+      { "quantity": "2", "unit": "tbsp", "name": "butter" },
+      { "quantity": "1", "unit": "tbsp", "name": "oil" },
+      { "quantity": "2", "unit": "tbsp", "name": "fresh cream" },
+      { "quantity": "1", "unit": "tbsp", "name": "ginger-garlic paste" },
+      { "quantity": "1", "unit": "tsp", "name": "red chili powder" },
+      { "quantity": "1", "unit": "tsp", "name": "coriander powder" },
+      { "quantity": "0.5", "unit": "tsp", "name": "turmeric powder" },
+      { "quantity": "1", "unit": "tsp", "name": "garam masala" },
+      { "quantity": "1", "unit": "tsp", "name": "kasuri methi, crushed" },
+      { "quantity": "1", "unit": "tsp", "name": "sugar" },
+      { "quantity": "1", "unit": "tsp", "name": "salt (or to taste)" },
+      { "quantity": "0.5", "unit": "cup", "name": "water" }
+    ],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "instruction": "Heat oil and 1 tablespoon butter in a pan. Add chopped onions and sauté until golden brown.",
+        "durationInSeconds": 300
+      },
+      {
+        "stepNumber": 2,
+        "instruction": "Add ginger-garlic paste and sauté for 1 minute until aromatic.",
+        "durationInSeconds": 60
+      },
+      {
+        "stepNumber": 3,
+        "instruction": "Add chopped tomatoes and cook until soft and oil starts separating.",
+        "durationInSeconds": 600
+      },
+      {
+        "stepNumber": 4,
+        "instruction": "Add turmeric powder, red chili powder, coriander powder, salt, and sugar. Mix well.",
+        "durationInSeconds": 120
+      },
+      {
+        "stepNumber": 5,
+        "instruction": "Blend the cooked mixture into a smooth puree and return it to the pan.",
+        "durationInSeconds": 300
+      },
+      {
+        "stepNumber": 6,
+        "instruction": "Add water and simmer the gravy for 5 minutes on low flame.",
+        "durationInSeconds": 300
+      },
+      {
+        "stepNumber": 7,
+        "instruction": "Add paneer cubes and remaining butter. Cook for 3–4 minutes.",
+        "durationInSeconds": 240
+      },
+      {
+        "stepNumber": 8,
+        "instruction": "Add fresh cream, garam masala, and crushed kasuri methi. Mix gently and switch off heat.",
+        "durationInSeconds": 120
+      },
+      {
+        "stepNumber": 9,
+        "instruction": "Serve hot with naan, roti, or jeera rice.",
+        "durationInSeconds": 60
+      }
+    ]
+  },
+ {
+  "id": "chicken-momo-detailed",
+  "title": "Chicken Momos (Street & Restaurant Style)",
+  "description": "Juicy steamed chicken momos with clear soup, made from scratch with detailed step-by-step instructions",
+  "totalTime": "1 hour 15 minutes",
+  "ingredients": [
+    { "quantity": "2.5", "unit": "cups", "name": "maida (all-purpose flour)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "salt (for dough)" },
+    { "quantity": "as needed", "unit": "", "name": "water (for dough)" },
+
+    { "quantity": "500", "unit": "g", "name": "minced chicken" },
+    { "quantity": "2", "unit": "tbsp", "name": "onion, very finely chopped or grated" },
+    { "quantity": "1", "unit": "tbsp", "name": "ginger, finely minced" },
+    { "quantity": "1", "unit": "tbsp", "name": "garlic, finely minced" },
+    { "quantity": "2", "unit": "tbsp", "name": "spring onion, finely chopped (optional)" },
+    { "quantity": "1", "unit": "tsp", "name": "black pepper powder" },
+    { "quantity": "1.5", "unit": "tsp", "name": "salt (for filling, adjust after test)" },
+    { "quantity": "1", "unit": "tbsp", "name": "soy sauce" },
+    { "quantity": "1", "unit": "tbsp", "name": "oil" },
+    { "quantity": "1", "unit": "tbsp", "name": "water or chicken stock" },
+    { "quantity": "0.5", "unit": "tsp", "name": "vinegar (optional)" },
+    { "quantity": "1", "unit": "pinch", "name": "MSG / Ajinomoto (optional)" },
+    { "quantity": "few drops", "unit": "", "name": "sesame oil (optional)" },
+
+    { "quantity": "500", "unit": "ml", "name": "water or chicken stock (for soup)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "ginger, chopped (for soup)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "garlic, chopped (for soup)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "black pepper (for soup)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "soy sauce (for soup)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "vinegar (for soup)" },
+    { "quantity": "to garnish", "unit": "", "name": "spring onion greens" }
+  ],
+  "steps": [
+    {
+      "stepNumber": 1,
+      "instruction": "In a bowl, mix maida and salt. Add water gradually and knead into a tight but smooth dough. Cover and rest for 20-30 minutes.",
+      "durationInSeconds": 1800
+    },
+    {
+      "stepNumber": 2,
+      "instruction": "Add minced chicken to a bowl. Add onion, ginger, garlic, spring onion, salt, black pepper, soy sauce, oil, water, vinegar, MSG, and sesame oil. Mix in one direction for 2-3 minutes until sticky and well combined.",
+      "durationInSeconds": 300
+    },
+    {
+      "stepNumber": 3,
+      "instruction": "Rest the chicken filling for 10 minutes to allow flavors to develop.",
+      "durationInSeconds": 600
+    },
+    {
+      "stepNumber": 4,
+      "instruction": "Cook 1 teaspoon of filling in a pan to taste-test. Adjust salt or pepper if needed.",
+      "durationInSeconds": 120
+    },
+    {
+      "stepNumber": 5,
+      "instruction": "Divide rested dough into small balls. Roll each ball into a thin circle (8-9 cm), keeping edges thinner than the center.",
+      "durationInSeconds": 900
+    },
+    {
+      "stepNumber": 6,
+      "instruction": "Place 1 tablespoon filling in the center of each wrapper. Fold into a half-moon or pleated shape and seal edges firmly.",
+      "durationInSeconds": 900,
+      "videoUrl": "https://www.youtube.com/watch?v=1pJRBXqAAGs"
+    },
+    {
+      "stepNumber": 7,
+      "instruction": "Grease steamer plate lightly and arrange momos with space between them. Steam on medium heat for 10-12 minutes until wrappers turn glossy and slightly transparent.",
+      "durationInSeconds": 720
+    },
+    {
+      "stepNumber": 8,
+      "instruction": "Heat a pan with a few drops of oil. Add chopped ginger and garlic on low flame. Add water or stock, salt, and pepper. Boil for 5 minutes.",
+      "durationInSeconds": 300
+    },
+    {
+      "stepNumber": 9,
+      "instruction": "Add soy sauce and vinegar to the soup. Add steamed momos and simmer gently for 2 minutes only.",
+      "durationInSeconds": 120
+    },
+    {
+      "stepNumber": 10,
+      "instruction": "Add spring onion greens, switch off heat, and serve momos hot with clear soup and red chilli chutney.",
+      "durationInSeconds": 60
+    }
+  ]
+},
+{
+  "id": "sil-batta-duck-curry-rice",
+  "title": "Sil-Batta Duck Curry (Slow Cooked, Rice Style)",
+  "description": "Deep-flavoured Indian duck curry made using traditional sil-batta ground masala, slow cooked for maximum tenderness and best served with rice",
+  "totalTime": "2 hours 30 minutes",
+  "ingredients": [
+    { "quantity": "1.5", "unit": "kg", "name": "duck meat, medium pieces (with bone)" },
+    { "quantity": "1", "unit": "tsp", "name": "turmeric powder" },
+    { "quantity": "1.5", "unit": "tsp", "name": "rock salt" },
+    { "quantity": "1", "unit": "tbsp", "name": "vinegar or lemon juice" },
+
+    { "quantity": "1.5", "unit": "tsp", "name": "black peppercorns" },
+    { "quantity": "2", "unit": "tsp", "name": "coriander seeds" },
+    { "quantity": "1", "unit": "tsp", "name": "cumin seeds" },
+    { "quantity": "0.5", "unit": "tsp", "name": "fennel seeds" },
+    { "quantity": "3", "unit": "", "name": "cloves" },
+    { "quantity": "2", "unit": "", "name": "green cardamom" },
+
+    { "quantity": "2", "unit": "inch", "name": "ginger (for paste)" },
+    { "quantity": "10-12", "unit": "cloves", "name": "garlic (for paste)" },
+    { "quantity": "3", "unit": "", "name": "green chillies" },
+
+    { "quantity": "5", "unit": "tbsp", "name": "mustard oil or coconut oil" },
+    { "quantity": "2", "unit": "", "name": "bay leaves" },
+    { "quantity": "1", "unit": "inch", "name": "cinnamon stick" },
+    { "quantity": "3", "unit": "", "name": "green cardamom (whole)" },
+    { "quantity": "4", "unit": "", "name": "cloves (whole)" },
+    { "quantity": "1", "unit": "", "name": "star anise (optional)" },
+
+    { "quantity": "5", "unit": "large", "name": "onions, thinly sliced" },
+    { "quantity": "1", "unit": "tbsp", "name": "extra ginger-garlic paste (optional)" },
+    { "quantity": "2", "unit": "sprigs", "name": "curry leaves" },
+    { "quantity": "0.5", "unit": "cup", "name": "tomato puree or finely chopped tomatoes" },
+
+    { "quantity": "1", "unit": "tsp", "name": "Kashmiri red chilli powder" },
+    { "quantity": "1.5", "unit": "tsp", "name": "red chilli powder" },
+    { "quantity": "1", "unit": "tsp", "name": "coriander powder" },
+    { "quantity": "1", "unit": "tsp", "name": "garam masala" },
+
+    { "quantity": "1.5-2", "unit": "cups", "name": "hot water" },
+    { "quantity": "0.75", "unit": "cup", "name": "coconut milk (optional)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "crushed black pepper (finishing)" },
+    { "quantity": "0.5", "unit": "tsp", "name": "garam masala (finishing)" },
+
+    { "quantity": "to garnish", "unit": "", "name": "fresh coriander leaves" }
+  ],
+  "steps": [
+    {
+      "stepNumber": 1,
+      "instruction": "Clean duck meat thoroughly. Rub with turmeric, salt, and vinegar or lemon juice. Set aside for 10 minutes, rinse lightly, and drain.",
+      "durationInSeconds": 900
+    },
+    {
+      "stepNumber": 2,
+      "instruction": "On a sil-batta, grind black peppercorns, coriander seeds, cumin seeds, fennel seeds, cloves, and cardamom with a little water to a coarse paste.",
+      "durationInSeconds": 600
+    },
+    {
+      "stepNumber": 3,
+      "instruction": "On the same sil-batta, grind ginger, garlic, and green chillies to a fine paste.",
+      "durationInSeconds": 300
+    },
+    {
+      "stepNumber": 4,
+      "instruction": "Marinate duck with ground spice paste, ginger-garlic-chilli paste, turmeric, salt, and vinegar. Massage well, cover, and rest for 3–4 hours (minimum 1 hour).",
+      "durationInSeconds": 1800
+    },
+    {
+      "stepNumber": 5,
+      "instruction": "Heat oil in a heavy-bottom pan. Add bay leaves, cinnamon, cardamom, cloves, and star anise. Let them crackle and release aroma.",
+      "durationInSeconds": 120
+    },
+    {
+      "stepNumber": 6,
+      "instruction": "Add sliced onions and cook on medium-low heat until deep golden brown, stirring frequently to avoid burning.",
+      "durationInSeconds": 900
+    },
+    {
+      "stepNumber": 7,
+      "instruction": "Add extra ginger-garlic paste (if using) and curry leaves. Sauté until raw smell disappears. Add tomato puree and cook till oil separates.",
+      "durationInSeconds": 480
+    },
+    {
+      "stepNumber": 8,
+      "instruction": "Add Kashmiri chilli powder, red chilli powder, coriander powder, and garam masala. Cook on low flame for 2 minutes.",
+      "durationInSeconds": 120
+    },
+    {
+      "stepNumber": 9,
+      "instruction": "Add marinated duck along with all masala. Increase heat and fry for 6–8 minutes until duck releases fat and masala coats evenly.",
+      "durationInSeconds": 480
+    },
+    {
+      "stepNumber": 10,
+      "instruction": "Add hot water, mix well, cover, and slow cook on low flame for 45–60 minutes, stirring every 10 minutes until duck becomes tender.",
+      "durationInSeconds": 3600
+    },
+    {
+      "stepNumber": 11,
+      "instruction": "Add coconut milk, crushed black pepper, and finishing garam masala. Simmer uncovered for 8–10 minutes until gravy thickens.",
+      "durationInSeconds": 600
+    },
+    {
+      "stepNumber": 12,
+      "instruction": "Switch off heat and let curry rest for 10 minutes. Garnish with fresh coriander and serve hot with steamed rice.",
+      "durationInSeconds": 600
+    }
+  ]
+}
+
+
+]
