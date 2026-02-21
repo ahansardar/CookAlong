@@ -37,7 +37,7 @@ const languages: { code: string; label: string; nativeLabel: string; inProgress?
   { code: 'st', label: 'Santali', nativeLabel: 'ᱥᱟᱱᱛᱟᱲᱤ', inProgress: true },
 ]
 
-export function LanguageSelectorStandalone() {
+export function LanguageSelector() {
   const [language, setLanguage] = useState('en')
   const [showDevAlert, setShowDevAlert] = useState(false)
 

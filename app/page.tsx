@@ -1,17 +1,18 @@
 "use client"
 
 import { ThemeToggle } from "@/components/theme-toggle"
-import { LanguageSelector } from "@/components/language-selector"
+ // use standalone version
 import { AnimatedLogo } from "@/components/animated-logo"
-import { useLanguage } from "@/context/LanguageContext"
 import { RecipeListClient } from "@/components/recipe-list-client"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
+import { useState } from "react"
 
 export default function HomePage() {
-  const { t } = useLanguage()
+  // optional: keep track of selected language internally
+  const [language, setLanguage] = useState("en")
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,7 +45,7 @@ export default function HomePage() {
                 </Button>
               </motion.div>
             </Link>
-            <LanguageSelector />
+            <LanguageSelectorStandalone />
             <ThemeToggle />
           </div>
         </div>
@@ -63,7 +64,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance"
           >
-            {t('home.title')}
+            Welcome to Cook-Along
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +72,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg text-muted-foreground leading-relaxed"
           >
-            {t('home.description')}
+            Explore delicious recipes, request your favorites, and enjoy cooking with us!
           </motion.p>
         </motion.div>
 
