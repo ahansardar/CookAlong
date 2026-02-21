@@ -1,7 +1,7 @@
 "use client"
 
 import { ThemeToggle } from "@/components/theme-toggle"
- // use standalone version
+import { LanguageSelector } from "@/components/language-selector" // use standalone version
 import { AnimatedLogo } from "@/components/animated-logo"
 import { RecipeListClient } from "@/components/recipe-list-client"
 import { motion } from "framer-motion"
@@ -45,7 +45,7 @@ export default function HomePage() {
                 </Button>
               </motion.div>
             </Link>
-            <LanguageSelectorStandalone />
+            <LanguageSelector />
             <ThemeToggle />
           </div>
         </div>
