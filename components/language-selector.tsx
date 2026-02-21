@@ -1,6 +1,6 @@
 'use client'
 
-import { useLanguage, type Language } from '@/context/LanguageContext'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -10,11 +10,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
-const languages: { code: Language; label: string; nativeLabel: string; inProgress?: boolean }[] = [
+const languages: { code: string; label: string; nativeLabel: string; inProgress?: boolean }[] = [
   { code: 'en', label: 'English', nativeLabel: 'English' },
-  // Indian Languages (22 languages)
   { code: 'hi', label: 'Hindi', nativeLabel: 'हिंदी', inProgress: true },
   { code: 'ta', label: 'Tamil', nativeLabel: 'தமிழ்', inProgress: true },
   { code: 'te', label: 'Telugu', nativeLabel: 'తెలుగు', inProgress: true },
@@ -39,8 +37,8 @@ const languages: { code: Language; label: string; nativeLabel: string; inProgres
   { code: 'st', label: 'Santali', nativeLabel: 'ᱥᱟᱱᱛᱟᱲᱤ', inProgress: true },
 ]
 
-export function LanguageSelector() {
-  const { language, setLanguage } = useLanguage()
+export function LanguageSelectorStandalone() {
+  const [language, setLanguage] = useState('en')
   const [showDevAlert, setShowDevAlert] = useState(false)
 
   const currentLanguage = languages.find((lang) => lang.code === language)
@@ -76,9 +74,9 @@ export function LanguageSelector() {
               <DropdownMenuItem
                 onClick={() => handleLanguageSelect(lang)}
                 disabled={lang.inProgress && lang.code !== 'en'}
-                className={`cursor-pointer text-sm ${
-                  language === lang.code ? 'bg-primary/10' : ''
-                } ${lang.inProgress && lang.code !== 'en' ? 'opacity-60' : ''}`}
+                className={`cursor-pointer text-sm ${language === lang.code ? 'bg-primary/10' : ''} ${
+                  lang.inProgress && lang.code !== 'en' ? 'opacity-60' : ''
+                }`}
               >
                 <div className="flex-1">
                   <span className="font-medium">{lang.nativeLabel}</span>
@@ -95,7 +93,6 @@ export function LanguageSelector() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Development In Progress Alert */}
       {showDevAlert && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
