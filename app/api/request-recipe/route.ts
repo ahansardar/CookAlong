@@ -12,7 +12,7 @@ if (!supabaseUrl || !supabaseServiceKey) {
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-// Verify hCaptcha token
+
 async function verifyCaptcha(token: string): Promise<boolean> {
   try {
     const response = await fetch('https://hcaptcha.com/siteverify', {
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { recipeName, description, ingredients, email, name, captchaToken } = body
 
-    // Validate required fields
+    
     if (!recipeName?.trim() || !email?.trim() || !name?.trim() || !captchaToken) {
       return NextResponse.json(
         { error: 'Missing required fields or CAPTCHA token' },
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verify CAPTCHA
+    
     const isCaptchaValid = await verifyCaptcha(captchaToken)
     if (!isCaptchaValid) {
       return NextResponse.json(
@@ -51,10 +51,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get client IP for tracking
+    
     const clientIp = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
 
-    // Check spam prevention: 3 requests per hour per IP
+
     const oneHourAgo = new Date(Date.now() - 3600000)
     const { data: recentRequests, error: queryError } = await supabase
       .from('recipe_requests')
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Store recipe request in database
+    
     const { data: insertedRequest, error: insertError } = await supabase
       .from('recipe_requests')
       .insert({
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Call Supabase Edge Function to send email
+    
     if (edgeFunctionUrl) {
       try {
         const emailResponse = await fetch(edgeFunctionUrl, {
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
         }
       } catch (error) {
         console.error('[v0] Error calling Edge Function:', error)
-        // Continue even if email fails - request is saved
+        
       }
     }
 
