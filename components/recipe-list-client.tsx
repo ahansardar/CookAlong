@@ -18,14 +18,14 @@ export function RecipeListClient() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [isClient, setIsClient] = useState(false) // ✅ check for client
+  const [isClient, setIsClient] = useState(false) 
 
-  // Detect client-side
+  // Detection for client-side
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  // Grab query params only on client
+  
   useEffect(() => {
     if (!isClient) return
     const params = new URLSearchParams(window.location.search)
@@ -39,7 +39,6 @@ export function RecipeListClient() {
     }
   }, [isClient])
 
-  // Load recipes
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true)
