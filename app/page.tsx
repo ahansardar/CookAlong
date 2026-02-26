@@ -1,7 +1,7 @@
 "use client"
 
 import { ThemeToggle } from "@/components/theme-toggle"
-import { LanguageSelector } from "@/components/language-selector" // use standalone version
+import { LanguageSelector } from "@/components/language-selector" 
 import { AnimatedLogo } from "@/components/animated-logo"
 import { RecipeListClient } from "@/components/recipe-list-client"
 import { motion } from "framer-motion"
@@ -11,7 +11,7 @@ import { Plus } from "lucide-react"
 import { useState } from "react"
 
 export default function HomePage() {
-  // optional: keep track of selected language internally
+  
   const [language, setLanguage] = useState("en")
 
   return (
