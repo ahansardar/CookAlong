@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Updated theme with warm cooking-inspired colors */
+
 :root {
   --background: oklch(0.98 0.01 85);
   --foreground: oklch(0.2 0.02 30);
@@ -130,25 +130,25 @@
     @apply bg-background text-foreground;
   }
 
-  /* Adding smooth scroll behavior and improved transitions */
+  
   html {
     scroll-behavior: smooth;
   }
 
-  /* Smooth color transitions for theme switching */
+  
   * {
     transition-property: background-color, border-color, color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 200ms;
   }
 
-  /* Better focus states for accessibility */
+
   *:focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 
-  /* Custom scrollbar styling */
+  
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -169,14 +169,14 @@
     background: var(--primary);
   }
 
-  /* Improved text rendering */
+  
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  /* Subtle backdrop blur support */
+
   @supports (backdrop-filter: blur(10px)) {
     .backdrop-blur-lg {
       backdrop-filter: blur(10px);
@@ -184,7 +184,7 @@
   }
 }
 
-/* Custom animations for enhanced UX */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -229,66 +229,7 @@
   background-size: 1000px 100%;
 }
 
-/* Comprehensive v0 badge hiding with multiple targeting strategies */
-/* Hide by data attributes */
-[data-v0-badge],
-[data-v0-branding],
-[data-v0],
-[data-vercel-badge] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  position: absolute !important;
-  z-index: -9999 !important;
-}
 
-/* Hide by text content */
-a[href*="v0.dev"],
-a[href*="v0.app"],
-div:has(> a[href*="v0.dev"]),
-div:has(> a[href*="v0.app"]) {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
-
-/* Target fixed position badges in bottom-right corner */
-body > div[style*="position: fixed"][style*="bottom"][style*="right"],
-body > aside[style*="position: fixed"][style*="bottom"][style*="right"],
-#__next > div[style*="position: fixed"][style*="bottom"][style*="right"] {
-  display: none !important;
-}
-
-/* Hide iframes that might contain badges */
-iframe[src*="v0"],
-iframe[src*="vercel-badge"] {
-  display: none !important;
-  visibility: hidden !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* Target by common badge styling patterns */
-div[class*="badge"][style*="position: fixed"],
-div[class*="branding"][style*="position: fixed"],
-a[class*="badge"][style*="position: fixed"] {
-  display: none !important;
-}
-
-/* Aggressive catch-all for bottom-right fixed elements with high z-index */
-*[style*="position: fixed"][style*="bottom: 16px"][style*="right: 16px"],
-*[style*="position: fixed"][style*="bottom: 20px"][style*="right: 20px"],
-*[style*="position: fixed"][style*="bottom: 1rem"][style*="right: 1rem"],
-*[style*="position:fixed"][style*="bottom:16px"][style*="right:16px"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
-
-/* Pulse animation for timer warnings */
 @keyframes pulse-warning {
   0%,
   100% {
