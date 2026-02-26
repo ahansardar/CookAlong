@@ -4,7 +4,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('[v0] Supabase credentials not found. Using fallback data.')
+  console.warn(' Supabase credentials not found. Using fallback data.')
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -48,7 +48,7 @@ export interface RecipeWithDetails extends Recipe {
 
 export async function getAllRecipes(): Promise<Recipe[]> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('[v0] Supabase not configured, returning empty array')
+    console.log('  Supabase not configured, returning empty array')
     return []
   }
 
@@ -59,20 +59,20 @@ export async function getAllRecipes(): Promise<Recipe[]> {
       .order('created_at', { ascending: false })
 
     if (error) {
-      console.error('[v0] Error fetching recipes:', error)
+      console.error('  Error fetching recipes:', error)
       return []
     }
 
     return data || []
   } catch (error) {
-    console.error('[v0] Error fetching recipes:', error)
+    console.error('  Error fetching recipes:', error)
     return []
   }
 }
 
 export async function getFeaturedRecipes(): Promise<Recipe[]> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('[v0] Supabase not configured, returning empty array')
+    console.log('  Supabase not configured, returning empty array')
     return []
   }
 
@@ -84,20 +84,20 @@ export async function getFeaturedRecipes(): Promise<Recipe[]> {
       .order('created_at', { ascending: false })
 
     if (error) {
-      console.error('[v0] Error fetching featured recipes:', error)
+      console.error('  Error fetching featured recipes:', error)
       return []
     }
 
     return data || []
   } catch (error) {
-    console.error('[v0] Error fetching featured recipes:', error)
+    console.error('  Error fetching featured recipes:', error)
     return []
   }
 }
 
 export async function getRecipesByCategory(category: string): Promise<Recipe[]> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('[v0] Supabase not configured, returning empty array')
+    console.log('  Supabase not configured, returning empty array')
     return []
   }
 
@@ -109,20 +109,20 @@ export async function getRecipesByCategory(category: string): Promise<Recipe[]> 
       .order('created_at', { ascending: false })
 
     if (error) {
-      console.error('[v0] Error fetching recipes by category:', error)
+      console.error('  Error fetching recipes by category:', error)
       return []
     }
 
     return data || []
   } catch (error) {
-    console.error('[v0] Error fetching recipes by category:', error)
+    console.error('  Error fetching recipes by category:', error)
     return []
   }
 }
 
 export async function getAllCategories(): Promise<string[]> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('[v0] Supabase not configured, returning empty array')
+    console.log('  Supabase not configured, returning empty array')
     return []
   }
 
@@ -133,7 +133,7 @@ export async function getAllCategories(): Promise<string[]> {
       .not('category', 'is', null)
 
     if (error) {
-      console.error('[v0] Error fetching categories:', error)
+      console.error('  Error fetching categories:', error)
       return []
     }
 
@@ -142,14 +142,14 @@ export async function getAllCategories(): Promise<string[]> {
       new Set(data?.map((r) => r.category).filter(Boolean))
     ) as string[]
     
-    console.log('[v0] Categories fetched:', { 
+    console.log('  Categories fetched:', { 
       rawData: data?.map(r => ({ category: r.category })),
       uniqueCategories: categories 
     })
     
     return categories.sort()
   } catch (error) {
-    console.error('[v0] Error fetching categories:', error)
+    console.error('  Error fetching categories:', error)
     return []
   }
 }
@@ -193,7 +193,7 @@ export function transformJsonRecipeToSupabaseFormat(
 export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails | null> {
   // Check if Supabase is properly configured
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('[v0] Supabase not configured, returning null for fallback')
+    console.log('  Supabase not configured, returning null for fallback')
     return null
   }
 
@@ -205,12 +205,12 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails |
       .limit(1)
 
     if (recipeError) {
-      console.error('[v0] Error fetching recipe:', recipeError.message)
+      console.error('  Error fetching recipe:', recipeError.message)
       return null
     }
 
     if (!recipes || recipes.length === 0) {
-      console.log('[v0] Recipe not found with slug:', slug)
+      console.log('  Recipe not found with slug:', slug)
       return null
     }
 
@@ -223,7 +223,7 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails |
       .order('position', { ascending: true })
 
     if (ingredientsError) {
-      console.error('[v0] Error fetching ingredients:', ingredientsError.message)
+      console.error('  Error fetching ingredients:', ingredientsError.message)
     }
 
     const { data: steps, error: stepsError } = await supabase
@@ -233,7 +233,7 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails |
       .order('step_number', { ascending: true })
 
     if (stepsError) {
-      console.error('[v0] Error fetching steps:', stepsError.message)
+      console.error('  Error fetching steps:', stepsError.message)
     }
 
     return {
@@ -242,7 +242,7 @@ export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails |
       steps: steps || [],
     }
   } catch (error) {
-    console.error('[v0] Error fetching recipe details:', error instanceof Error ? error.message : error)
+    console.error('  Error fetching recipe details:', error instanceof Error ? error.message : error)
     return null
   }
 }
