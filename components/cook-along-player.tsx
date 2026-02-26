@@ -12,7 +12,6 @@ interface Step {
   instruction: string
   duration_in_seconds: number | null
   video_url?: string | null
-  // Support both old and new field names for backwards compatibility
   stepNumber?: number
   durationInSeconds?: number
   videoUrl?: string
@@ -40,19 +39,18 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
   const [isComplete, setIsComplete] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
   const [showIntervalAlert, setShowIntervalAlert] = useState(false)
-  const [showVideoPlayer, setShowVideoPlayer] = useState(false) // State for video player visibility
-  const [isFullscreen, setIsFullscreen] = useState(false) // Added fullscreen state
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false) 
+  const [isFullscreen, setIsFullscreen] = useState(false) 
 
   const audioContextRef = useRef<AudioContext | null>(null)
   const lastIntervalAlarmRef = useRef<number>(0)
   const hasPlayedWarningRef = useRef<boolean>(false)
-  const containerRef = useRef<HTMLDivElement>(null) // Added ref for fullscreen container
-
+  const containerRef = useRef<HTMLDivElement>(null) 
   const currentStep = recipe.steps[currentStepIndex]
   const duration = currentStep.duration_in_seconds ?? currentStep.durationInSeconds ?? 0
   const progress = duration > 0 && timeRemaining !== undefined ? ((duration - timeRemaining) / duration) * 100 : 0
   
-  // Use slug for navigation, fallback to id
+  
   const recipeRoute = recipe.slug || recipe.id
 
   const playBeep = useCallback(
@@ -71,7 +69,7 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
       gainNode.connect(context.destination)
 
       oscillator.frequency.value = frequency
-      oscillator.type = "triangle" // Triangle wave is louder and more attention-grabbing
+      oscillator.type = "triangle" 
 
       gainNode.gain.setValueAtTime(volume, context.currentTime)
       gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + duration)
@@ -86,7 +84,7 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
     setShowWarning(true)
     setTimeout(() => setShowWarning(false), 3000)
 
-    // Five loud ascending beeps with much longer duration for kitchen noise
+    
     playBeep(700, 0.7, 0.6, "warning")
     setTimeout(() => playBeep(800, 0.7, 0.65, "warning"), 850)
     setTimeout(() => playBeep(900, 0.7, 0.65, "warning"), 1750)
@@ -95,20 +93,20 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
   }, [playBeep])
 
   const playCompleteSound = useCallback(() => {
-    // Extended celebratory melody - 6 notes with longer sustain
+    
     playBeep(523, 0.6, 0.5, "complete") // C
-    setTimeout(() => playBeep(659, 0.6, 0.55, "complete"), 700) // E
-    setTimeout(() => playBeep(784, 0.7, 0.6, "complete"), 1500) // G
-    setTimeout(() => playBeep(1047, 0.9, 0.65, "complete"), 2400) // High C
-    setTimeout(() => playBeep(988, 0.6, 0.6, "complete"), 3500) // B
-    setTimeout(() => playBeep(1047, 1.2, 0.7, "complete"), 4300) // Final High C (long)
+    setTimeout(() => playBeep(659, 0.6, 0.55, "complete"), 700) 
+    setTimeout(() => playBeep(784, 0.7, 0.6, "complete"), 1500) 
+    setTimeout(() => playBeep(1047, 0.9, 0.65, "complete"), 2400) 
+    setTimeout(() => playBeep(988, 0.6, 0.6, "complete"), 3500) 
+    setTimeout(() => playBeep(1047, 1.2, 0.7, "complete"), 4300) 
   }, [playBeep])
 
   const playIntervalAlarm = useCallback(() => {
     setShowIntervalAlert(true)
     setTimeout(() => setShowIntervalAlert(false), 3500)
 
-    // Triple beep pattern with longer duration and higher volume
+    
     playBeep(850, 0.7, 0.6, "interval")
     setTimeout(() => playBeep(850, 0.7, 0.6, "interval"), 900)
     setTimeout(() => playBeep(750, 0.6, 0.55, "interval"), 1800)
@@ -152,9 +150,9 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
           }
 
           if (duration > 600) {
-            // 10 minutes
+            
             const elapsed = duration - newTime
-            const currentInterval = Math.floor(elapsed / 300) // Every 5 minutes (300 seconds)
+            const currentInterval = Math.floor(elapsed / 300) 
 
             if (currentInterval > lastIntervalAlarmRef.current && currentInterval > 0) {
               playIntervalAlarm()
@@ -183,7 +181,7 @@ export function CookAlongPlayer({ recipe }: CookAlongPlayerProps) {
   useEffect(() => {
     hasPlayedWarningRef.current = false
     lastIntervalAlarmRef.current = 0
-    setShowVideoPlayer(false) // Hide video player when step changes
+    setShowVideoPlayer(false) 
   }, [currentStepIndex])
 
   const getYouTubeVideoId = (url: string) => {
