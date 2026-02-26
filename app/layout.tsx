@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
-        {/* Removed LanguageProvider, using standalone LanguageSelector instead */}
+        
         {children}
         <Analytics />
       </body>
