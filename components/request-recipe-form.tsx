@@ -28,14 +28,13 @@ export function RequestRecipeForm() {
   const [error, setError] = useState<string | null>(null)
   const captchaRef = useRef<HCaptcha>(null)
 
-  // Check spam prevention on mount
+  
   useEffect(() => {
     const checkSpamLimit = () => {
       const now = Date.now()
       const requestsKey = 'recipe_requests'
       const requests = JSON.parse(localStorage.getItem(requestsKey) || '[]') as number[]
       
-      // Remove requests older than 1 hour
       const recentRequests = requests.filter(time => now - time < 3600000)
       
       if (recentRequests.length >= 3) {
@@ -54,13 +53,13 @@ export function RequestRecipeForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Validate CAPTCHA
+    
     if (!captchaToken) {
       setError('CAPTCHA Required: Please complete the CAPTCHA verification.')
       return
     }
 
-    // Check spam prevention
+    
     const now = Date.now()
     const requestsKey = 'recipe_requests'
     const requests = JSON.parse(localStorage.getItem(requestsKey) || '[]') as number[]
@@ -71,13 +70,13 @@ export function RequestRecipeForm() {
       return
     }
 
-    // Validate form data
+    
     if (!formData.recipeName.trim() || !formData.email.trim() || !formData.name.trim()) {
       setError('Missing Fields: Please fill in all required fields.')
       return
     }
 
-    // Validate email format
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.email)) {
       setError('Invalid Email: Please enter a valid email address.')
@@ -102,11 +101,10 @@ export function RequestRecipeForm() {
         throw new Error(data.error || 'Failed to submit recipe request')
       }
 
-      // Update spam prevention
+      
       recentRequests.push(now)
       localStorage.setItem(requestsKey, JSON.stringify(recentRequests))
-
-      // Reset form
+      
       setFormData({
         recipeName: '',
         description: '',
@@ -183,7 +181,7 @@ export function RequestRecipeForm() {
           />
         </div>
 
-        {/* Your Name */}
+        {/* Name */}
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
             Your Name <span className="text-red-500">*</span>
