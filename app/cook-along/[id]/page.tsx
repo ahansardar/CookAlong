@@ -20,7 +20,7 @@ export async function generateStaticParams() {
     console.error('[v0] Error fetching recipes for static params:', error)
   }
 
-  // Fallback to JSON recipes
+  // Fallback 
   return recipes.map((recipe) => ({
     id: recipe.id,
   }))
@@ -29,10 +29,10 @@ export async function generateStaticParams() {
 export default async function CookAlongPage({ params }: CookAlongPageProps) {
   const { id } = await params
 
-  // Try to fetch from Supabase first
+  
   let recipe = await getRecipeBySlug(id)
 
-  // Fallback to JSON data if Supabase fails
+  // Fallback
   if (!recipe) {
     const fallbackRecipe = recipes.find((r) => r.id === id)
     if (!fallbackRecipe) {
