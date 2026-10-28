@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { RecipeImage } from "./recipe-image";
 import { ArrowUpRight, Clock } from "lucide-react";
 import type { Recipe } from "@/lib/supabase";
 export function RecipeCard({
@@ -11,11 +12,7 @@ export function RecipeCard({
 }) {
   return (
     <Link className="recipe-tile" href={`/recipe/${recipe.slug || recipe.id}`}>
-      {recipe.image_url && (
-        <div className="tile-image">
-          <img src={recipe.image_url} alt={recipe.title} loading="lazy" />
-        </div>
-      )}
+      <RecipeImage recipe={recipe} />
       <div className="tile-body">
         <div className="recipe-entry-meta">
           <span>{recipe.category || "From the kitchen"}</span>

@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { RecipeImage } from "./recipe-image";
+import { getRecipeImage } from "@/lib/recipe-imagery";
 import Link from "next/link";
 import {
   Clock,
@@ -46,8 +48,8 @@ export function RecipePageClient({ recipe }: { recipe: RecipeWithDetails }) {
             </p>
           </div>
           <div className="recipe-overview">
-            {recipe.image_url ? (
-              <img src={recipe.image_url} alt={recipe.title} />
+            {getRecipeImage(recipe) ? (
+              <RecipeImage recipe={recipe} detail />
             ) : (
               <>
                 <p className="overview-label">BEFORE YOU BEGIN</p>
