@@ -1,15 +1,9 @@
 {
-  "note": "First five dishes retain existing CookAlong recipe imagery, cropped and optimized locally. The fish stock photo is a serving suggestion, not a photograph of the exact recipe. No database records are changed. New user-uploaded image replacements take precedence over these local copies.",
-  "existingRecipeImages": {
-    "shahi-paneer-pulav": "https://image2url.com/r2/default/images/1772038957244-cccdb249-4177-4211-81eb-e5dccfedb498.png",
-    "paneer-butter-masala": "https://image2url.com/r2/default/images/1771669327385-cc4e7dc2-05d7-4f47-af9c-3934172d9395.png",
-    "duck-curry": "https://image2url.com/r2/default/images/1771669666494-1bfa532e-1c3f-4eab-9d78-23baa27e1d58.png",
-    "chicken-momos": "https://image2url.com/r2/default/images/1771669756769-8c57feb3-e0c4-4b5b-94df-1cc0583e4457.png",
-    "gajar-ka-halwa": "https://image2url.com/r2/default/images/1771669789013-bde0d4ca-1189-46ca-a5d2-12fe55df8e81.png"
+  "note": "The six approved cookbook-style illustrations are conceptual serving ideas, not photographs of the exact recipes. All six use forest-green engraving, warm ivory paper and muted terracotta. Original Supabase image records are unchanged; future user-uploaded image URLs take precedence.",
+  "illustrations": {
+    "source": "Original generated editorial illustration set, approved by Ahan on 2026-10-28 before rollout.",
+    "files": ["shahi-paneer-pulav-illustration", "air-fried-fish-illustration", "duck-curry-illustration", "chicken-momos-illustration", "paneer-butter-masala-illustration", "gajar-ka-halwa-illustration"],
+    "treatment": "Individual plates extracted with generous 4:3 ivory paper fields. 1000px detail and 480px thumbnail WebP variants. Visible Illustrated serving idea captions and descriptive alt text."
   },
-  "fish": {
-    "source": "https://www.pexels.com/photo/fish-on-plate-18354018/",
-    "license": "https://www.pexels.com/license/",
-    "treatment": "Cropped, lightly desaturated and converted to WebP. Free use and modification; attribution is not required. Displayed as a serving suggestion."
-  }
+  "favicon": "Original steaming-bowl vector mark in CookAlong forest green and ivory. SVG, PNG and ICO fallbacks."
 }

@@ -1823,3 +1823,6 @@ html {
 .recipe-photo-detail { width: 100%; aspect-ratio: 4 / 3; }
 .recipe-overview:has(.recipe-photo-detail) { padding: 0; border: 0; align-self: center; }
 @media (prefers-reduced-motion: reduce) { .recipe-photo > img { transition: none; } .recipe-tile:hover .recipe-photo > img { transform: none; } }
+
+/* A quiet paper field keeps the cookbook illustrations legible in both themes. */
+.recipe-illustration figcaption { background: transparent; color: #696e63; }

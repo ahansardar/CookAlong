@@ -8,7 +8,7 @@ export function RecipeImage({ recipe, detail = false }: { recipe: Recipe; detail
   const [failed, setFailed] = useState(false);
   if (!image || failed) return null;
   return (
-    <figure className={detail ? "recipe-photo recipe-photo-detail" : "tile-image recipe-photo"}>
+    <figure className={`${detail ? "recipe-photo recipe-photo-detail" : "tile-image recipe-photo"}${image.caption === "Illustrated serving idea" ? " recipe-illustration" : ""}`}>
       <img
         src={detail ? image.src : (image.thumbnail || image.src)}
         srcSet={image.thumbnail ? `${image.thumbnail} 480w, ${image.src} 1000w` : undefined}

@@ -10,7 +10,7 @@ const curated: Record<string, { file: string; original?: string; caption?: strin
   "chicken-momo-detailed": { file: "chicken-momos" },
   "gajar-ka-halwa": { file: "gajar-ka-halwa", original: "1771669789013-bde0d4ca-1189-46ca-a5d2-12fe55df8e81" },
   "traditional-gajar-ka-halwa": { file: "gajar-ka-halwa" },
-  "elite-air-fried-satin-fish": { file: "air-fried-fish", caption: "Serving suggestion" },
+  "elite-air-fried-satin-fish": { file: "air-fried-fish", caption: "Illustrated serving idea" },
 };
 
 export function getRecipeImage(recipe: Pick<Recipe, "slug" | "id" | "title" | "image_url">): RecipeImage | null {
@@ -18,10 +18,10 @@ export function getRecipeImage(recipe: Pick<Recipe, "slug" | "id" | "title" | "i
   // Respect any future user-uploaded replacement; do not change database records.
   if (entry && (!recipe.image_url || (entry.original && recipe.image_url.includes(entry.original)))) {
     return {
-      src: `/recipes/${entry.file}.webp`,
-      thumbnail: `/recipes/${entry.file}-thumb.webp`,
-      alt: entry.caption ? `Fish fillet serving suggestion for ${recipe.title.trim()}` : recipe.title.trim(),
-      caption: entry.caption,
+      src: `/recipes/${entry.file}-illustration.webp`,
+      thumbnail: `/recipes/${entry.file}-illustration-thumb.webp`,
+      alt: `Cookbook illustration of ${recipe.title.trim()}`,
+      caption: "Illustrated serving idea",
     };
   }
   return recipe.image_url ? { src: recipe.image_url, alt: recipe.title.trim() } : null;
