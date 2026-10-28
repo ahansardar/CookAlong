@@ -26,7 +26,7 @@ export function ThemeToggle() {
 
   return (
     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-      <Button variant="ghost" size="icon" onClick={toggleTheme} className="relative">
+      <Button variant="ghost" size="icon" onClick={toggleTheme} className="relative" aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}>
         <AnimatePresence mode="wait">
           {theme === "light" ? (
             <motion.div

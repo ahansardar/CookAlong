@@ -1,169 +1,157 @@
-"use client"
-
-import { useEffect, useState, useMemo } from "react"
-import { useRouter } from "next/navigation"
-import { RecipeCard } from "@/components/recipe-card"
-import { getAllRecipes, getFeaturedRecipes, getAllCategories, type Recipe } from "@/lib/supabase"
-import { motion } from "framer-motion"
-import { Search, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-
+"use client";
+import { useEffect, useState, useMemo } from "react";
+import { Search, X, ArrowUpRight, SlidersHorizontal } from "lucide-react";
+import Link from "next/link";
+import { RecipeCard } from "./recipe-card";
+import { getAllRecipes, type Recipe } from "@/lib/supabase";
 export function RecipeListClient() {
-  const router = useRouter()
-
-  const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
-  const [featuredRecipes, setFeaturedRecipes] = useState<Recipe[]>([])
-  const [categories, setCategories] = useState<string[]>([])
-  const [searchInput, setSearchInput] = useState("")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isClient, setIsClient] = useState(false) 
-
-  // Detection for client-side
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [quick, setQuick] = useState(false);
   useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  
-  useEffect(() => {
-    if (!isClient) return
-    const params = new URLSearchParams(window.location.search)
-    const categoryParam = params.get("category")
-    const searchParam = params.get("search")
-    
-    if (categoryParam) setSelectedCategory(categoryParam)
-    if (searchParam) {
-      setSearchQuery(searchParam)
-      setSearchInput(searchParam)
-    }
-  }, [isClient])
-
-  useEffect(() => {
-    const loadData = async () => {
-      setIsLoading(true)
-      const [recipes, featured, cats] = await Promise.all([
-        getAllRecipes(),
-        getFeaturedRecipes(),
-        getAllCategories(),
-      ])
-      setAllRecipes(recipes)
-      setFeaturedRecipes(featured)
-      setCategories(cats)
-      setIsLoading(false)
-    }
-    loadData()
-  }, [])
-
-  const filteredRecipes = useMemo(() => {
-    return allRecipes.filter((recipe) => {
-      const matchesSearch =
-        recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (recipe.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
-      const matchesCategory =
-        !selectedCategory ||
-        recipe.category?.toLowerCase() === selectedCategory.toLowerCase()
-      return matchesSearch && matchesCategory
-    })
-  }, [allRecipes, searchQuery, selectedCategory])
-
-  const handleSearch = () => {
-    const params = new URLSearchParams()
-    if (searchInput.trim()) params.append("search", searchInput.trim())
-    if (selectedCategory) params.append("category", selectedCategory)
-    router.push(params.toString() ? `/?${params.toString()}` : "/")
+    const p = new URLSearchParams(location.search);
+    setQuery(p.get("search") || "");
+    setCategory(p.get("category") || "");
+    let active = true;
+    getAllRecipes().then((r) => {
+      if (active) {
+        setRecipes(r);
+        setLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(recipes.map((r) => r.category).filter(Boolean))
+      ) as string[],
+    [recipes]
+  );
+  const filtered = recipes.filter(
+    (r) =>
+      (!category || r.category === category) &&
+      `${r.title} ${r.description || ""}`
+        .toLowerCase()
+        .includes(query.toLowerCase()) &&
+      (!quick || minutes(r.total_time) <= 30)
+  );
+  function update(q: string, c: string) {
+    setQuery(q);
+    setCategory(c);
+    const p = new URLSearchParams();
+    if (q) p.set("search", q);
+    if (c) p.set("category", c);
+    history.replaceState(null, "", p.size ? `/?${p}#recipes` : "/#recipes");
   }
-
-  const clearSearch = () => {
-    setSearchInput("")
-    router.push(selectedCategory ? `/?category=${encodeURIComponent(selectedCategory)}` : "/")
-  }
-
-  if (!isClient || isLoading) {
-    return (
-      <div className="space-y-8">
-        <div className="h-12 bg-muted rounded-lg animate-pulse" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[1,2,3,4].map((i) => (
-            <div key={i} className="bg-card border border-border rounded-xl p-6 animate-pulse">
-              <div className="h-6 bg-muted rounded mb-2 w-3/4" />
-              <div className="h-4 bg-muted rounded mb-4 w-full" />
-              <div className="h-8 bg-muted rounded" />
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-
-
   return (
-    <div className="space-y-8">
-      {/* Search + Filters */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-3 sm:space-y-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+    <section id="recipes" className="recipe-section">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">THE RECIPE BOOK</p>
+          <h2>What sounds good today?</h2>
+        </div>
+        <span className="collection-count">Something worth making.</span>
+      </div>
+      <div className="search-row">
+        <label className="search-field">
+          <Search size={20} />
+          <span className="sr-only">Search recipes</span>
           <input
-            type="text"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            placeholder="Search recipes..."
-            className="w-full pl-10 pr-10 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary"
+            type="search"
+            placeholder="Find a dish, a flavour, a little inspiration..."
+            value={query}
+            onChange={(e) => update(e.target.value, category)}
           />
-          {searchInput && (
-            <button onClick={clearSearch} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-card-foreground">
-              <X className="w-5 h-5" />
+          {query && (
+            <button
+              aria-label="Clear search"
+              onClick={() => update("", category)}
+            >
+              <X size={18} />
             </button>
           )}
+        </label>
+        <button
+          className={`quick-filter ${quick ? "selected" : ""}`}
+          aria-pressed={quick}
+          onClick={() => setQuick(!quick)}
+        >
+          <SlidersHorizontal size={17} /> Under 30 min
+        </button>
+      </div>
+      <div className="filter-row" aria-label="Recipe categories">
+        <button
+          aria-pressed={!category}
+          className={!category ? "active" : ""}
+          onClick={() => update(query, "")}
+        >
+          All recipes
+        </button>
+        {categories.map((c) => (
+          <button
+            aria-pressed={category === c}
+            key={c}
+            className={category === c ? "active" : ""}
+            onClick={() => update(query, c)}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+      <div className="results-meta" aria-live="polite">
+        <span>
+          {loading
+            ? "Opening the recipe book..."
+            : `${filtered.length} ${
+                filtered.length === 1 ? "recipe" : "recipes"
+              }${query ? ` matching “${query}”` : " to make your own"}`}
+        </span>
+        <span className="results-hint">
+          Pick a dish. We'll take it from there.
+        </span>
+      </div>
+      {loading ? (
+        <div className="recipe-grid" aria-busy="true">
+          {[1, 2, 3, 4].map((n) => (
+            <div key={n} className="recipe-skeleton" />
+          ))}
         </div>
-
-        <Button onClick={handleSearch} className="w-full py-2">Search</Button>
-
-        {categories.length > 0 && (
-          <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-muted-foreground">Filter by Category</h3>
-            <div className="flex flex-wrap gap-2">
-              <Button variant={selectedCategory === null ? "default" : "outline"} size="sm" onClick={() => router.push("/")}>All</Button>
-              {categories.map(cat => (
-                <Button
-                  key={cat}
-                  variant={selectedCategory === cat ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => router.push(`/?category=${encodeURIComponent(cat)}`)}
-                >
-                  {cat}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
-      </motion.div>
-
-      {/* Featured Recipes */}
-      {featuredRecipes.length > 0 && !selectedCategory && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-6">
-          <h2 className="text-xl font-bold mb-4">Featured Recipes</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredRecipes.map(r => <RecipeCard key={r.id} recipe={r} />)}
-          </div>
-        </motion.div>
+      ) : filtered.length ? (
+        <div className="recipe-grid">
+          {filtered.map((r, i) => (
+            <RecipeCard recipe={r} key={r.id} index={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="empty-state">
+          <Search size={28} />
+          <h3>No dishes found. Keep exploring.</h3>
+          <p>Try a different name or clear your filters.</p>
+          <button
+            className="primary-action"
+            onClick={() => {
+              update("", "");
+              setQuick(false);
+            }}
+          >
+            Show all recipes
+          </button>
+          <Link href="/request-recipe">
+            Or request a recipe <ArrowUpRight size={16} />
+          </Link>
+        </div>
       )}
-
-      {/* Recipe List */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8">
-        <h2 className="text-xl font-bold mb-4">{selectedCategory ? `${selectedCategory} Recipes` : "All Recipes"}</h2>
-        {filteredRecipes.length === 0 ? (
-          <p className="text-center text-muted-foreground py-8 rounded bg-muted/50">
-            {searchQuery ? `No recipes found for "${searchQuery}"` : "No recipes available in this category"}
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredRecipes.map(r => <RecipeCard key={r.id} recipe={r} />)}
-          </div>
-        )}
-      </motion.div>
-    </div>
-  )
+    </section>
+  );
+}
+function minutes(value: string | null) {
+  if (!value) return Infinity;
+  const h = value.match(/(\d+)\s*(?:hours?|hrs?|h)\b/i);
+  const m = value.match(/(\d+)\s*(?:minutes?|mins?|m)\b/i);
+  return h || m ? Number(h?.[1] || 0) * 60 + Number(m?.[1] || 0) : Infinity;
 }

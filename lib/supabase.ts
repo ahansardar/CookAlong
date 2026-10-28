@@ -1,157 +1,96 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
+import bundledRecipes from "@/data/recipes.json";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(' Supabase credentials not found. Using fallback data.')
+  console.warn(" Supabase credentials not found. Using fallback data.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase =
+  supabaseUrl && supabaseAnonKey
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : null;
 
 export interface Recipe {
-  id: string
-  slug: string
-  title: string
-  description: string | null
-  total_time: string | null
-  image_url: string | null
-  category: string | null
-  is_featured: boolean | null
-  created_at: string | null
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  total_time: string | null;
+  image_url: string | null;
+  category: string | null;
+  is_featured: boolean | null;
+  created_at: string | null;
 }
 
 export interface Ingredient {
-  id: string
-  recipe_id: string
-  quantity: string | null
-  unit: string | null
-  name: string
-  position: number
-  created_at: string | null
+  id: string;
+  recipe_id: string;
+  quantity: string | null;
+  unit: string | null;
+  name: string;
+  position: number;
+  created_at: string | null;
 }
 
 export interface Step {
-  id: string
-  recipe_id: string
-  step_number: number
-  instruction: string
-  duration_in_seconds: number | null
-  video_url: string | null
-  created_at: string | null
+  id: string;
+  recipe_id: string;
+  step_number: number;
+  instruction: string;
+  duration_in_seconds: number | null;
+  video_url: string | null;
+  created_at: string | null;
 }
 
 export interface RecipeWithDetails extends Recipe {
-  ingredients: Ingredient[]
-  steps: Step[]
+  ingredients: Ingredient[];
+  steps: Step[];
 }
 
+const categories: Record<string, string> = {
+  "traditional-gajar-ka-halwa": "Sweet treats",
+  "paneer-butter-masala": "Vegetarian",
+  "chicken-momo-detailed": "Chicken",
+  "sil-batta-duck-curry-rice": "Slow cooking",
+};
+function fallbackRecipes(): RecipeWithDetails[] {
+  return bundledRecipes.map((r) => ({
+    ...transformJsonRecipeToSupabaseFormat(r),
+    category: categories[r.id] || "Home cooking",
+  }));
+}
 export async function getAllRecipes(): Promise<Recipe[]> {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('  Supabase not configured, returning empty array')
-    return []
-  }
-
+  if (!supabase) return fallbackRecipes();
   try {
     const { data, error } = await supabase
-      .from('recipes')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      console.error('  Error fetching recipes:', error)
-      return []
-    }
-
-    return data || []
-  } catch (error) {
-    console.error('  Error fetching recipes:', error)
-    return []
+      .from("recipes")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error || !data?.length) return fallbackRecipes();
+    return data;
+  } catch {
+    return fallbackRecipes();
   }
 }
-
 export async function getFeaturedRecipes(): Promise<Recipe[]> {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('  Supabase not configured, returning empty array')
-    return []
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('recipes')
-      .select('*')
-      .eq('is_featured', true)
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      console.error('  Error fetching featured recipes:', error)
-      return []
-    }
-
-    return data || []
-  } catch (error) {
-    console.error('  Error fetching featured recipes:', error)
-    return []
-  }
+  return (await getAllRecipes()).filter((r) => r.is_featured);
 }
-
-export async function getRecipesByCategory(category: string): Promise<Recipe[]> {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('  Supabase not configured, returning empty array')
-    return []
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('recipes')
-      .select('*')
-      .eq('category', category)
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      console.error('  Error fetching recipes by category:', error)
-      return []
-    }
-
-    return data || []
-  } catch (error) {
-    console.error('  Error fetching recipes by category:', error)
-    return []
-  }
+export async function getRecipesByCategory(
+  category: string
+): Promise<Recipe[]> {
+  return (await getAllRecipes()).filter((r) => r.category === category);
 }
-
 export async function getAllCategories(): Promise<string[]> {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('  Supabase not configured, returning empty array')
-    return []
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('recipes')
-      .select('category')
-      .not('category', 'is', null)
-
-    if (error) {
-      console.error('  Error fetching categories:', error)
-      return []
-    }
-
-    // Extract unique categories
-    const categories = Array.from(
-      new Set(data?.map((r) => r.category).filter(Boolean))
-    ) as string[]
-    
-    console.log('  Categories fetched:', { 
-      rawData: data?.map(r => ({ category: r.category })),
-      uniqueCategories: categories 
-    })
-    
-    return categories.sort()
-  } catch (error) {
-    console.error('  Error fetching categories:', error)
-    return []
-  }
+  return Array.from(
+    new Set(
+      (await getAllRecipes())
+        .map((r) => r.category)
+        .filter((c): c is string => !!c)
+    )
+  ).sort();
 }
 
 export function transformJsonRecipeToSupabaseFormat(
@@ -187,62 +126,40 @@ export function transformJsonRecipeToSupabaseFormat(
       video_url: step.videoUrl || null,
       created_at: null,
     })),
-  }
+  };
 }
 
-export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails | null> {
-  // Check if Supabase is properly configured
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.log('  Supabase not configured, returning null for fallback')
-    return null
-  }
-
+export async function getRecipeBySlug(
+  slug: string
+): Promise<RecipeWithDetails | null> {
+  const fallback = () => fallbackRecipes().find((r) => r.slug === slug) || null;
+  if (!supabase) return fallback();
   try {
-    const { data: recipes, error: recipeError } = await supabase
-      .from('recipes')
-      .select('*')
-      .eq('slug', slug)
-      .limit(1)
-
-    if (recipeError) {
-      console.error('  Error fetching recipe:', recipeError.message)
-      return null
-    }
-
-    if (!recipes || recipes.length === 0) {
-      console.log('  Recipe not found with slug:', slug)
-      return null
-    }
-
-    const recipe = recipes[0]
-
-    const { data: ingredients, error: ingredientsError } = await supabase
-      .from('ingredients')
-      .select('*')
-      .eq('recipe_id', recipe.id)
-      .order('position', { ascending: true })
-
-    if (ingredientsError) {
-      console.error('  Error fetching ingredients:', ingredientsError.message)
-    }
-
-    const { data: steps, error: stepsError } = await supabase
-      .from('steps')
-      .select('*')
-      .eq('recipe_id', recipe.id)
-      .order('step_number', { ascending: true })
-
-    if (stepsError) {
-      console.error('  Error fetching steps:', stepsError.message)
-    }
-
+    const { data: recipe, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (error || !recipe) return fallback();
+    const [ingredients, steps] = await Promise.all([
+      supabase
+        .from("ingredients")
+        .select("*")
+        .eq("recipe_id", recipe.id)
+        .order("position"),
+      supabase
+        .from("steps")
+        .select("*")
+        .eq("recipe_id", recipe.id)
+        .order("step_number"),
+    ]);
+    if (ingredients.error || steps.error) return fallback();
     return {
       ...recipe,
-      ingredients: ingredients || [],
-      steps: steps || [],
-    }
-  } catch (error) {
-    console.error('  Error fetching recipe details:', error instanceof Error ? error.message : error)
-    return null
+      ingredients: ingredients.data || [],
+      steps: steps.data || [],
+    };
+  } catch {
+    return fallback();
   }
 }

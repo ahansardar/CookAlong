@@ -1,172 +1,179 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
-import { AlertCircle, CheckCircle } from 'lucide-react'
+import { useState, useRef, useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { AlertCircle, CheckCircle } from "lucide-react";
 
 interface FormData {
-  recipeName: string
-  description: string
-  ingredients: string
-  email: string
-  name: string
+  recipeName: string;
+  description: string;
+  ingredients: string;
+  email: string;
+  name: string;
 }
 
 export function RequestRecipeForm() {
   const [formData, setFormData] = useState<FormData>({
-    recipeName: '',
-    description: '',
-    ingredients: '',
-    email: '',
-    name: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const captchaRef = useRef<HCaptcha>(null)
+    recipeName: "",
+    description: "",
+    ingredients: "",
+    email: "",
+    name: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const captchaRef = useRef<HCaptcha>(null);
 
-  
   useEffect(() => {
     const checkSpamLimit = () => {
-      const now = Date.now()
-      const requestsKey = 'recipe_requests'
-      const requests = JSON.parse(localStorage.getItem(requestsKey) || '[]') as number[]
-      
-      const recentRequests = requests.filter(time => now - time < 3600000)
-      
+      const now = Date.now();
+      const requestsKey = "recipe_requests";
+      const requests = JSON.parse(
+        localStorage.getItem(requestsKey) || "[]"
+      ) as number[];
+
+      const recentRequests = requests.filter((time) => now - time < 3600000);
+
       if (recentRequests.length >= 3) {
-        setError('Rate Limit Exceeded: You can make up to 3 recipe requests per hour. Please try again later.')
+        setError(
+          "Rate Limit Exceeded: You can make up to 3 recipe requests per hour. Please try again later."
+        );
       }
-    }
+    };
 
-    checkSpamLimit()
-  }, [])
+    checkSpamLimit();
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    
     if (!captchaToken) {
-      setError('CAPTCHA Required: Please complete the CAPTCHA verification.')
-      return
+      setError("CAPTCHA Required: Please complete the CAPTCHA verification.");
+      return;
     }
 
-    
-    const now = Date.now()
-    const requestsKey = 'recipe_requests'
-    const requests = JSON.parse(localStorage.getItem(requestsKey) || '[]') as number[]
-    const recentRequests = requests.filter(time => now - time < 3600000)
+    const now = Date.now();
+    const requestsKey = "recipe_requests";
+    const requests = JSON.parse(
+      localStorage.getItem(requestsKey) || "[]"
+    ) as number[];
+    const recentRequests = requests.filter((time) => now - time < 3600000);
 
     if (recentRequests.length >= 3) {
-      setError('Rate Limit Exceeded: You can make up to 3 recipe requests per hour. Please try again later.')
-      return
+      setError(
+        "Rate Limit Exceeded: You can make up to 3 recipe requests per hour. Please try again later."
+      );
+      return;
     }
 
-    
-    if (!formData.recipeName.trim() || !formData.email.trim() || !formData.name.trim()) {
-      setError('Missing Fields: Please fill in all required fields.')
-      return
+    if (
+      !formData.recipeName.trim() ||
+      !formData.email.trim() ||
+      !formData.name.trim()
+    ) {
+      setError("Missing Fields: Please fill in all required fields.");
+      return;
     }
 
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError('Invalid Email: Please enter a valid email address.')
-      return
+      setError("Invalid Email: Please enter a valid email address.");
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/request-recipe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/request-recipe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           captchaToken,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit recipe request')
+        throw new Error(data.error || "Failed to submit recipe request");
       }
 
-      
-      recentRequests.push(now)
-      localStorage.setItem(requestsKey, JSON.stringify(recentRequests))
-      
+      recentRequests.push(now);
+      localStorage.setItem(requestsKey, JSON.stringify(recentRequests));
+
       setFormData({
-        recipeName: '',
-        description: '',
-        ingredients: '',
-        email: '',
-        name: '',
-      })
-      setCaptchaToken(null)
+        recipeName: "",
+        description: "",
+        ingredients: "",
+        email: "",
+        name: "",
+      });
+      setCaptchaToken(null);
       if (captchaRef.current) {
-        captchaRef.current.resetCaptcha()
+        captchaRef.current.resetCaptcha();
       }
 
-      setShowSuccess(true)
-      setError(null)
-      setTimeout(() => setShowSuccess(false), 3000)
+      setShowSuccess(true);
+      setError(null);
+      setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred. Please try again.')
+      setError(
+        error instanceof Error
+          ? error.message
+          : "An error occurred. Please try again."
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
+
+  const captchaConfigured = !!process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-card border border-border rounded-lg sm:rounded-xl p-6 sm:p-8 max-w-2xl mx-auto"
-    >
-      <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground mb-2">Request a Recipe</h2>
+    <div className="bg-card border border-border rounded-lg sm:rounded-xl p-6 sm:p-8 max-w-2xl mx-auto">
       <p className="text-muted-foreground text-sm sm:text-base mb-6">
-        Have a recipe in mind? Let us know and we'll consider adding it to our collection!
+        Tell us what you miss cooking. Fields marked * are required.
       </p>
 
       {error && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
+        <div
+          role="alert"
           className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-700 dark:text-red-300 text-sm flex items-start gap-2"
         >
           <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <span>{error}</span>
-        </motion.div>
+        </div>
       )}
 
       {showSuccess && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
+        <div
+          role="status"
           className="mb-6 p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-700 dark:text-green-300 text-sm flex items-start gap-2"
         >
           <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
           <span>Recipe request submitted successfully!</span>
-        </motion.div>
+        </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
         {/* Recipe Name */}
         <div>
-          <label htmlFor="recipeName" className="block text-sm font-medium text-card-foreground mb-2">
+          <label
+            htmlFor="recipeName"
+            className="block text-sm font-medium text-card-foreground mb-2"
+          >
             Recipe Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -183,7 +190,10 @@ export function RequestRecipeForm() {
 
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-card-foreground mb-2"
+          >
             Your Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -200,7 +210,10 @@ export function RequestRecipeForm() {
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-card-foreground mb-2"
+          >
             Email <span className="text-red-500">*</span>
           </label>
           <input
@@ -217,7 +230,10 @@ export function RequestRecipeForm() {
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-card-foreground mb-2">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-card-foreground mb-2"
+          >
             Description (Optional)
           </label>
           <textarea
@@ -233,7 +249,10 @@ export function RequestRecipeForm() {
 
         {/* Ingredients */}
         <div>
-          <label htmlFor="ingredients" className="block text-sm font-medium text-card-foreground mb-2">
+          <label
+            htmlFor="ingredients"
+            className="block text-sm font-medium text-card-foreground mb-2"
+          >
             Key Ingredients (Optional)
           </label>
           <textarea
@@ -248,25 +267,32 @@ export function RequestRecipeForm() {
         </div>
 
         {/* CAPTCHA */}
-        <div className="flex justify-center py-4">
-          <HCaptcha
-            ref={captchaRef}
-            sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || ''}
-            onVerify={(token) => setCaptchaToken(token)}
-            theme="dark"
-          />
+        <div className="captcha-container flex justify-center py-4">
+          {captchaConfigured ? (
+            <HCaptcha
+              ref={captchaRef}
+              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || ""}
+              onVerify={(token) => setCaptchaToken(token)}
+              theme="light"
+            />
+          ) : (
+            <p role="status" className="small-note">
+              Recipe requests are unavailable in this preview. Your details will
+              not be sent.
+            </p>
+          )}
         </div>
 
         {/* Submit Button */}
         <Button
           type="submit"
-          disabled={isSubmitting || !captchaToken}
+          disabled={isSubmitting || !captchaToken || !captchaConfigured}
           className="w-full text-sm sm:text-base py-2 sm:py-3"
           size="lg"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Recipe Request'}
+          {isSubmitting ? "Submitting..." : "Submit Recipe Request"}
         </Button>
       </form>
-    </motion.div>
-  )
+    </div>
+  );
 }
